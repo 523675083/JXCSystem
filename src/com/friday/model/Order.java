@@ -13,6 +13,8 @@ public class Order {
 
     private Integer oStyle;
 
+    private String oDateStr;
+
     public String getoId() {
         return oId;
     }
@@ -51,5 +53,13 @@ public class Order {
 
     public void setoStyle(Integer oStyle) {
         this.oStyle = oStyle;
+    }
+
+    public String getoDateStr() {
+        return oDateStr;
+    }
+
+    public void setoDateStr(String oDateStr) {
+        this.oDateStr = oDateStr;
     }
 }

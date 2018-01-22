@@ -141,7 +141,7 @@ $(function($) {
     <c:forEach items="${result }" var="order">
     	<tr>
             <td align="center"><a href="javascript:queryDetail('${order.oId}')">${order.oId }</a></td>
-            <td align="center">${order.date }</td>
+            <td align="center">${order.oDateStr }</td>
             <td align="center">${order.user }</td>
             <td align="center">${order.price }</td>
             <td align="center">${order.style }</td>

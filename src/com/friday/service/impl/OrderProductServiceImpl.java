@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import com.friday.utils.DateUtil;
 import org.apache.ibatis.session.SqlSession;
 import com.friday.inter.OrderDetailMapper;
 import com.friday.inter.OrderMapper;
@@ -140,6 +142,7 @@ public class OrderProductServiceImpl implements OrderProductService {
 						Map<String, Object> map = new HashMap<String, Object>();
 						map.put("oId", order.getoId());
 						map.put("date", order.getoDate());
+						map.put("oDateStr", DateUtil.formatDate("yyyy-MM-dd",order.getoDate()));
 						User user = userMapper.selectByPrimaryKey(order.getuId());
 						map.put("user", user.getuName());
 						List<OrderDetail> orderDetails = orderDetailMapper.selectByOrderId(order.getoId());
@@ -163,7 +166,7 @@ public class OrderProductServiceImpl implements OrderProductService {
 							map.put("style", "未处理");
 							break;
 						}
-						
+
 						list.add(map);
 					}
 				}
