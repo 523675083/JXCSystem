@@ -7,9 +7,11 @@
     <result column="p_id" property="pId" jdbcType="INTEGER" />
     <result column="o_num" property="oNum" jdbcType="INTEGER" />
     <result column="o_inNum" property="oInnum" jdbcType="INTEGER" />
+    <result column="p_price" property="pPrice"/>
+    <result column="p_prices" property="pPrices"/>
   </resultMap>
   <sql id="Base_Column_List" >
-    o_id, order_id, p_id, o_num, o_inNum
+    o_id, order_id, p_id, o_num, o_inNum, p_price, p_prices
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -29,71 +31,71 @@
   </delete>
   <insert id="insert" parameterType="com.friday.model.OrderDetail" >
     insert into ordersdetails (o_id, order_id, p_id, 
-      o_num, o_inNum)
+      o_num, o_inNum, p_price, p_prices)
     values (#{oId,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{pId,jdbcType=INTEGER}, 
-      #{oNum,jdbcType=INTEGER}, #{oInnum,jdbcType=INTEGER})
+      #{oNum,jdbcType=INTEGER}, #{oInnum,jdbcType=INTEGER}, #{pPrice}, #{pPrices})
   </insert>
-  <insert id="insertSelective" parameterType="com.friday.model.OrderDetail" >
-    insert into ordersdetails
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="oId != null" >
-        o_id,
-      </if>
-      <if test="orderId != null" >
-        order_id,
-      </if>
-      <if test="pId != null" >
-        p_id,
-      </if>
-      <if test="oNum != null" >
-        o_num,
-      </if>
-      <if test="oInnum != null" >
-        o_inNum,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="oId != null" >
-        #{oId,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null" >
-        #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="pId != null" >
-        #{pId,jdbcType=INTEGER},
-      </if>
-      <if test="oNum != null" >
-        #{oNum,jdbcType=INTEGER},
-      </if>
-      <if test="oInnum != null" >
-        #{oInnum,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.friday.model.OrderDetail" >
-    update ordersdetails
-    <set >
-      <if test="orderId != null" >
-        order_id = #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="pId != null" >
-        p_id = #{pId,jdbcType=INTEGER},
-      </if>
-      <if test="oNum != null" >
-        o_num = #{oNum,jdbcType=INTEGER},
-      </if>
-      <if test="oInnum != null" >
-        o_inNum = #{oInnum,jdbcType=INTEGER},
-      </if>
-    </set>
-    where o_id = #{oId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.friday.model.OrderDetail" >
-    update ordersdetails
-    set order_id = #{orderId,jdbcType=VARCHAR},
-      p_id = #{pId,jdbcType=INTEGER},
-      o_num = #{oNum,jdbcType=INTEGER},
-      o_inNum = #{oInnum,jdbcType=INTEGER}
-    where o_id = #{oId,jdbcType=INTEGER}
-  </update>
+  <!--<insert id="insertSelective" parameterType="com.friday.model.OrderDetail" >-->
+    <!--insert into ordersdetails-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->
+      <!--<if test="oId != null" >-->
+        <!--o_id,-->
+      <!--</if>-->
+      <!--<if test="orderId != null" >-->
+        <!--order_id,-->
+      <!--</if>-->
+      <!--<if test="pId != null" >-->
+        <!--p_id,-->
+      <!--</if>-->
+      <!--<if test="oNum != null" >-->
+        <!--o_num,-->
+      <!--</if>-->
+      <!--<if test="oInnum != null" >-->
+        <!--o_inNum,-->
+      <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides="," >-->
+      <!--<if test="oId != null" >-->
+        <!--#{oId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="orderId != null" >-->
+        <!--#{orderId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="pId != null" >-->
+        <!--#{pId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="oNum != null" >-->
+        <!--#{oNum,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="oInnum != null" >-->
+        <!--#{oInnum,jdbcType=INTEGER},-->
+      <!--</if>-->
+    <!--</trim>-->
+  <!--</insert>-->
+  <!--<update id="updateByPrimaryKeySelective" parameterType="com.friday.model.OrderDetail" >-->
+    <!--update ordersdetails-->
+    <!--<set >-->
+      <!--<if test="orderId != null" >-->
+        <!--order_id = #{orderId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="pId != null" >-->
+        <!--p_id = #{pId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="oNum != null" >-->
+        <!--o_num = #{oNum,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="oInnum != null" >-->
+        <!--o_inNum = #{oInnum,jdbcType=INTEGER},-->
+      <!--</if>-->
+    <!--</set>-->
+    <!--where o_id = #{oId,jdbcType=INTEGER}-->
+  <!--</update>-->
+  <!--<update id="updateByPrimaryKey" parameterType="com.friday.model.OrderDetail" >-->
+    <!--update ordersdetails-->
+    <!--set order_id = #{orderId,jdbcType=VARCHAR},-->
+      <!--p_id = #{pId,jdbcType=INTEGER},-->
+      <!--o_num = #{oNum,jdbcType=INTEGER},-->
+      <!--o_inNum = #{oInnum,jdbcType=INTEGER}-->
+    <!--where o_id = #{oId,jdbcType=INTEGER}-->
+  <!--</update>-->
 </mapper>

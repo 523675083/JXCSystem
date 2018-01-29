@@ -11,6 +11,10 @@ public class OrderDetail {
 
     private Integer oInnum;
 
+    private Float pPrice;
+
+    private Float pPrices;
+
     public Integer getoId() {
         return oId;
     }
@@ -49,5 +53,21 @@ public class OrderDetail {
 
     public void setoInnum(Integer oInnum) {
         this.oInnum = oInnum;
+    }
+
+    public Float getpPrice() {
+        return pPrice;
+    }
+
+    public void setpPrice(Float pPrice) {
+        this.pPrice = pPrice;
+    }
+
+    public Float getpPrices() {
+        return pPrices;
+    }
+
+    public void setpPrices(Float pPrices) {
+        this.pPrices = pPrices;
     }
 }

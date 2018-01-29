@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.xml.crypto.Data;
 
+import com.friday.model.Order;
+import com.friday.model.OrderDetail;
 import com.friday.model.ProductType;
 
 public interface OrderProductService {
@@ -13,6 +15,8 @@ public interface OrderProductService {
 	public Map<String, Object> getTypeAndProduct() throws Exception;
 	
 	public int orderProduct(Map<Integer, Integer> order, Date date, String bz , String uId, String oId) throws Exception;
+
+	int orderProduct(Order order, List<OrderDetail> orderDetails) throws Exception;
 	
 	/**
 	 * 根据查询条件获取订单列表

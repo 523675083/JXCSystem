@@ -14,13 +14,13 @@ public interface OrderDetailMapper {
      */
     int insert(OrderDetail record);
 
-    int insertSelective(OrderDetail record);
+    //int insertSelective(OrderDetail record);
 
-    OrderDetail selectByPrimaryKey(Integer oId);
+    //OrderDetail selectByPrimaryKey(Integer oId);
 
-    int updateByPrimaryKeySelective(OrderDetail record);
-
-    int updateByPrimaryKey(OrderDetail record);
+//    int updateByPrimaryKeySelective(OrderDetail record);
+//
+//    int updateByPrimaryKey(OrderDetail record);
     
     /**
      * 根据订单id获取订单详情

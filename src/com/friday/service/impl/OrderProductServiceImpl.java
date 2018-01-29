@@ -97,6 +97,36 @@ public class OrderProductServiceImpl implements OrderProductService {
 	}
 
 	@Override
+	public int orderProduct(Order order, List<OrderDetail> orderDetails) throws Exception {
+		int ret = 0;
+		SqlSession sqlSession = null;
+
+		try {
+			sqlSession = SessionUtils.getSession();
+
+			OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+			OrderDetailMapper orderDetailMapper = sqlSession.getMapper(OrderDetailMapper.class);
+			orderMapper.insert(order);
+			if(orderDetails!=null){
+				for (OrderDetail orderDetail : orderDetails) {
+					orderDetail.setOrderId(order.getoId());
+					orderDetailMapper.insert(orderDetail);
+				}
+			}
+
+			sqlSession.commit();
+			ret = 1;
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw e;
+		} finally {
+			SessionUtils.closeSession(sqlSession);
+		}
+
+		return ret;
+	}
+
+	@Override
 	public List<Object> queryOrder(Date start, Date end, int style,
 			String orderId) throws Exception {
 		List<Object> list = new ArrayList<Object>();

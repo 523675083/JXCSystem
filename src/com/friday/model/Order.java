@@ -15,6 +15,8 @@ public class Order {
 
     private String oDateStr;
 
+    private Float oPrice;//订单总金额
+
     public String getoId() {
         return oId;
     }
@@ -61,5 +63,13 @@ public class Order {
 
     public void setoDateStr(String oDateStr) {
         this.oDateStr = oDateStr;
+    }
+
+    public Float getoPrice() {
+        return oPrice;
+    }
+
+    public void setoPrice(Float oPrice) {
+        this.oPrice = oPrice;
     }
 }

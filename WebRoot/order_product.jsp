@@ -59,7 +59,11 @@
         });
         function changePrice(pId){
             $("#prices"+pId).val($("#num"+pId).val()*$("#price"+pId).val());
-
+            var orderPrice=0;
+			$(".prices").each(function () {
+                orderPrice=Number(orderPrice)+Number($(this).val());
+            });
+			$("#orderPrice").val(orderPrice);
         }
 	</script>
 
@@ -71,7 +75,7 @@
 	${success}
 </div>
 <form action="orderproduct.do" method="post">
-	<table id="rounded-corner" summary="2007 Major IT Companies' Profit">
+	<table id="rounded-corner" summary="2007 Major IT Companies' Profit" style="width: 98%;">
 		<tr>
 			<td colspan="5" align="left"><strong>订购产品</strong></td>
 		</tr>
@@ -80,30 +84,34 @@
 				<td colspan="5" align="center"><strong></strong>${productType.key }</td>
 			</tr>
 			<tr>
-				<td width="26" align="ceter">名称</td>
-				<td width="31" align="center">规格</td>
-				<td width="31" align="center">单价</td>
-				<td width="104" align="center">订购数量</td>
+				<td width="20%" align="ceter">名称</td>
+				<td width="20%" align="center">规格</td>
+				<td width="20%" align="center">单价</td>
+				<td width="20%" align="center">订购数量</td>
 				<td width="60" align="center">商品总价</td>
 			</tr>
 			<c:forEach items="${productType.value }" var="product">
 				<tr>
 					<td  align="center"><input type="text" size="10" value="${product.pName }" readonly/></td>
 					<td  align="center"><input type="text" size="6" value="${product.pStyle }" readonly/></td>
-					<td  align="center"><input id="price${product.pId }" type="text" size="6" value="${product.pPrice }" readonly/></td>
+					<td  align="center"><input id="price${product.pId }" name="price${product.pId }" type="text" size="6" value="${product.pPrice }" onchange="changePrice(${product.pId })"/></td>
 					<td  align="center"><input id="num${product.pId }" name="${product.pId }" type="text" size="9" onkeyup="this.value=this.value.replace(/\D/g,'')" onchange="changePrice(${product.pId })"/></td>
-					<td  align="center"><input id="prices${product.pId }" type="text" size="6"  readonly/></td>
+					<td  align="center"><input id="prices${product.pId }" name="prices${product.pId }" class="prices"  type="text" size="6" value="0" readonly /></td>
 				</tr>
 			</c:forEach>
 		</c:forEach>
 		<tr>
 			<td align="right"><strong>订购时间</strong></td>
-			<td colspan="5"><input name="orderTime" type="text" id="textfield21" size="27" onclick="WdatePicker()"/>
+			<td colspan="4"><input name="orderTime" type="text" id="textfield21" size="27" onclick="WdatePicker()"/>
 				&nbsp;&nbsp;＊点击文本框获取时间</td>
 		</tr>
 		<tr>
 			<td align="right"><strong>备注</strong></td>
-			<td colspan="4"><textarea name="remark" cols="60" id="textfield23"></textarea></td>
+			<td colspan="4"><textarea name="remark" cols="40" id="textfield23"></textarea></td>
+		</tr>
+		<tr>
+			<td align="right"><strong>订单总金额</strong></td>
+			<td colspan="4"><input name="orderPrice" type="text" id="orderPrice" size="27" readonly/></td>
 		</tr>
 		<tr>
 			<td colspan="5" align="center">
