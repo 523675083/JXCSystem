@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.friday.utils.DateUtil;
 import org.apache.ibatis.session.SqlSession;
 import com.friday.inter.GoodsBackDetailMapper;
 import com.friday.inter.GoodsBackMapper;
@@ -179,6 +181,7 @@ public class StockInServiceImpl implements StockInService {
 			InStockMapper inStockMapper = sqlSession.getMapper(InStockMapper.class);
 			InStockDetailMapper inStockDetailMapper = sqlSession.getMapper(InStockDetailMapper.class);
 			UserMapper userMapper	= sqlSession.getMapper(UserMapper.class);
+			OrderMapper orderMapper=sqlSession.getMapper(OrderMapper.class);
 			
 			if (!orderId.isEmpty()) {
 				InStock inStock = inStockMapper.selectByPrimaryKey(orderId);
@@ -186,16 +189,20 @@ public class StockInServiceImpl implements StockInService {
 				if (inStock != null) {
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("oId", inStock.getiId());
-					map.put("date", inStock.getiDate());
+					map.put("date", DateUtil.formatDate("yyyy-MM-dd",inStock.getiDate()));
 					User user = userMapper.selectByPrimaryKey(inStock.getuId());
 					map.put("user", user.getuName());
-					List<InStockDetail> inStockDetails = inStockDetailMapper.selectByInStockId(inStock.getiId());
-					int price = 0;
-					for (InStockDetail inStockDetail : inStockDetails) {
-						Product product = productMapper.selectByPrimaryKey(inStockDetail.getpId());
-						price += inStockDetail.getiNum() * product.getpPrice();
+//					List<InStockDetail> inStockDetails = inStockDetailMapper.selectByInStockId(inStock.getiId());
+//					int price = 0;
+//					for (InStockDetail inStockDetail : inStockDetails) {
+//						Product product = productMapper.selectByPrimaryKey(inStockDetail.getpId());
+//						price += inStockDetail.getiNum() * product.getpPrice();
+//					}
+//					map.put("price", price);
+					Order order = orderMapper.selectByPrimaryKey(inStock.getoId());
+					if(order!=null){
+						map.put("price",order.getoPrice());
 					}
-					map.put("price", price);
 					list.add(map);
 				}
 				
@@ -208,17 +215,20 @@ public class StockInServiceImpl implements StockInService {
 					if ((end == null ? true : inStock.getiDate().before(end)) && (start == null ? true : inStock.getiDate().after(start))) {
 						Map<String, Object> map = new HashMap<String, Object>();
 						map.put("oId", inStock.getiId());
-						map.put("date", inStock.getiDate());
+						map.put("date", DateUtil.formatDate("yyyy-MM-dd",inStock.getiDate()));
 						User user = userMapper.selectByPrimaryKey(inStock.getuId());
 						map.put("user", user.getuName());
-						List<InStockDetail> inStockDetails = inStockDetailMapper.selectByInStockId(inStock.getiId());
-						int price = 0;
-						for (InStockDetail inStockDetail : inStockDetails) {
-							Product product = productMapper.selectByPrimaryKey(inStockDetail.getpId());
-							price += inStockDetail.getiNum() * product.getpPrice();
+//						List<InStockDetail> inStockDetails = inStockDetailMapper.selectByInStockId(inStock.getiId());
+//						int price = 0;
+//						for (InStockDetail inStockDetail : inStockDetails) {
+//							Product product = productMapper.selectByPrimaryKey(inStockDetail.getpId());
+//							price += inStockDetail.getiNum() * product.getpPrice();
+//						}
+//						map.put("price", price);
+						Order order = orderMapper.selectByPrimaryKey(inStock.getoId());
+						if(order!=null){
+							map.put("price",order.getoPrice());
 						}
-						map.put("price", price);
-						
 						list.add(map);
 					}
 				}

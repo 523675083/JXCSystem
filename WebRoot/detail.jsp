@@ -56,7 +56,7 @@ ddaccordion.init({
 	<tr>
 	    <td align="center">名称</td>
 	    <td align="center">订购数量</td>
-	    <td align="center">订购数量</td>
+	    <td align="center">金额</td>
 	</tr>
 	<c:forEach items="${details }" var="detail">
 	<tr>

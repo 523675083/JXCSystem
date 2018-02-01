@@ -143,16 +143,31 @@ public class OrderProductServiceImpl implements OrderProductService {
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("oId", order.getoId());
 					map.put("date", order.getoDate());
+					map.put("oDateStr", DateUtil.formatDate("yyyy-MM-dd",order.getoDate()));
+					map.put("price",order.getoPrice());
 					User user = userMapper.selectByPrimaryKey(order.getuId());
 					map.put("user", user.getuName());
-					List<OrderDetail> orderDetails = orderDetailMapper.selectByOrderId(order.getoId());
-					int price = 0;
-					for (OrderDetail orderDetail : orderDetails) {
-						Product product = productMapper.selectByPrimaryKey(orderDetail.getpId());
-						price += orderDetail.getoNum() * product.getpPrice();//总价
+//					List<OrderDetail> orderDetails = orderDetailMapper.selectByOrderId(order.getoId());
+//					int price = 0;
+//					for (OrderDetail orderDetail : orderDetails) {
+//						Product product = productMapper.selectByPrimaryKey(orderDetail.getpId());
+//						price += orderDetail.getoNum() * product.getpPrice();//总价
+//					}
+//					map.put("price", price);
+					switch (order.getoStyle()) {
+						case 0:
+							map.put("style", "未处理");
+							break;
+						case 1:
+							map.put("style", "已入库");
+							break;
+						case -1:
+							map.put("style", "已退回");
+							break;
+						default:
+							map.put("style", "未处理");
+							break;
 					}
-					map.put("price", price);
-					map.put("style", order.getoStyle());
 					list.add(map);
 				}
 				
@@ -173,15 +188,16 @@ public class OrderProductServiceImpl implements OrderProductService {
 						map.put("oId", order.getoId());
 						map.put("date", order.getoDate());
 						map.put("oDateStr", DateUtil.formatDate("yyyy-MM-dd",order.getoDate()));
+						map.put("price",order.getoPrice());
 						User user = userMapper.selectByPrimaryKey(order.getuId());
 						map.put("user", user.getuName());
-						List<OrderDetail> orderDetails = orderDetailMapper.selectByOrderId(order.getoId());
-						int price = 0;
-						for (OrderDetail orderDetail : orderDetails) {
-							Product product = productMapper.selectByPrimaryKey(orderDetail.getpId());
-							price += orderDetail.getoNum() * product.getpPrice();
-						}
-						map.put("price", price);
+						//List<OrderDetail> orderDetails = orderDetailMapper.selectByOrderId(order.getoId());
+//						int price = 0;
+//						for (OrderDetail orderDetail : orderDetails) {
+//							Product product = productMapper.selectByPrimaryKey(orderDetail.getpId());
+//							price += orderDetail.getoNum() * product.getpPrice();
+//						}
+//						map.put("price", price);
 						switch (order.getoStyle()) {
 						case 0:
 							map.put("style", "未处理");

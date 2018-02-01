@@ -70,6 +70,14 @@ $(function($) {
 		};
 		xmlHttp.send();
 	}
+	function exportOrder(){
+		$("#orderForm").attr("action","exportorder.do");
+        $("#orderForm").submit();
+	}
+    function queryOrder(){
+        $("#orderForm").attr("action","queryorder.do");
+        $("#orderForm").submit();
+    }
 </script>
 <script language="javascript" type="text/javascript" src="JS/niceforms.js"></script>
 <link rel="stylesheet" type="text/css" media="all" href="CSS/niceforms-default.css" />
@@ -83,21 +91,22 @@ $(function($) {
 	</tr>
     <tr>
     	<td colspan="5" align="right">
-       	<form action="queryorder.do" method="post">
+       	<form action="queryorder.do" method="post" id="orderForm">
         	  <label>开始时间：</label>
-        	  <input name="starttime" type="text" id="textfield" size="5" onclick="WdatePicker()" />
+        	  <input name="starttime" type="text" id="textfield" size="5" onclick="WdatePicker()" value="${starttime }" />
         	  <label>结束时间:</label>
-        	  <input name="endtime" type="text" id="textfield2" size="5" onclick="WdatePicker()" />
+        	  <input name="endtime" type="text" id="textfield2" size="5" onclick="WdatePicker()" value="${endtime }"/>
         	  <label>订单编号:</label>
-        	  <input name="orderid" type="text" id="textfield3" size="5" />
+        	  <input name="orderid" type="text" id="textfield3" size="5" value="${orderId }"/>
         	  <label>订单状态:</label>
         	  <select name="orderstate">
-        	  	<option value="2">所有类型</option>
-        	  	<option value="0">未处理</option>
-        	  	<option value="1">已入库</option>
-        	  	<option value="-1">已退回</option>
+				  <option value="2" <c:if test="${orderstate==2}">selected</c:if>>所有类型</option>
+        	  	<option value="0" <c:if test="${orderstate==0}">selected</c:if>>未处理</option>
+        	  	<option value="1" <c:if test="${orderstate==1}">selected</c:if>>已入库</option>
+        	  	<option value="-1" <c:if test="${orderstate==-1}">selected</c:if>>已退回</option>
         	  </select>
-        	  <input type="submit" value="查询" />
+        	  <input type="button" value="查询" onclick="queryOrder()"/>
+			<input type="button" value="导出" onclick="exportOrder()"/>
        	</form>
        	</td>
      </tr>
@@ -113,13 +122,14 @@ $(function($) {
 		 <tr>
 			<td colspan="5" align="right">
 			<div class="pagination">
-				<form action="queryorder.do" method="post" style="display:none" name="hideform">
-		       	  <input name="starttime" type="text" id="textfield" size="8" onclick="WdatePicker()" value="${starttime }"/>
-		       	  <input name="endtime" type="text" id="textfield2" size="8" onclick="WdatePicker()" value="${endtime }"/>
-		       	  <input name="orderid" type="text" id="textfield3" size="8" value="${orderid }"/>
-		       	  <input name="orderstate" value="${orderstate }" />
-		       	  <input type="submit" value="查询" />
-		      	</form>
+				<%--<form action="queryorder.do" method="post" style="display:none" name="hideform">--%>
+		       	  <%--<input name="starttime" type="text" id="textfield" size="8" onclick="WdatePicker()" value="${starttime }"/>--%>
+		       	  <%--<input name="endtime" type="text" id="textfield2" size="8" onclick="WdatePicker()" value="${endtime }"/>--%>
+		       	  <%--<input name="orderid" type="text" id="textfield3" size="8" value="${orderid }"/>--%>
+		       	  <%--<input name="orderstate" value="${orderstate }" />--%>
+		       	  <%--<input type="submit" value="查询"  />--%>
+					<%--<input type="button" value="导出" onclick="exportOrder()"/>--%>
+		      	<%--</form>--%>
 		      	<% 
 		      		int pagecount = request.getAttribute("pagecount") == null ? 1 : (Integer)request.getAttribute("pagecount");
 		      		int pagecurrent = request.getAttribute("pagecurrent") == null ? 0 : (Integer)request.getAttribute("pagecurrent");

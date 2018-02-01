@@ -19,7 +19,7 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
-    from instock
+    from instock order by i_date desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from instock

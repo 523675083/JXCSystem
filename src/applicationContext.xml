@@ -21,6 +21,7 @@
 	<bean id="getProductController" class="com.friday.controller.GetProductController" />
 	<bean id="orderProductController" class="com.friday.controller.OrderProductController" />
 	<bean id="queryOrderController" class="com.friday.controller.QueryOrderController"></bean>
+	<bean id="exportOrderController" class="com.friday.controller.ExportOrderController"></bean>
 	<bean id="stockInController" class="com.friday.controller.StockInController"></bean>
 	<bean id="goodsBackController" class="com.friday.controller.GoodsBackController"></bean>
 	<bean id="getOutProductController" class="com.friday.controller.StockOutGetProductController"></bean>
@@ -76,6 +77,7 @@
 				<prop key="/getproduct.do">getProductController</prop>
 				<prop key="/orderproduct.do">orderProductController</prop>
 				<prop key="/queryorder.do">queryOrderController</prop>
+				<prop key="/exportorder.do">exportOrderController</prop>
 				<prop key="/stockin.do">stockInController</prop>
 				<prop key="/goodsback.do">goodsBackController</prop>
 				<prop key="/getoutproduct.do">getOutProductController</prop>
